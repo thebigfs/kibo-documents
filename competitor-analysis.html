@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>경쟁업체 분석 - 주식회사 더큰도시락</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--sky:#5AC8FA;--sky-deep:#2196F3;--sky-pale:#EBF5FF;--black:#1d1d1f;--g1:#333;--g2:#6e6e73;--g3:#86868b;--g4:#d2d2d7;--g5:#f5f5f7;--white:#fff;--red:#FF3B30;--green:#34C759;--orange:#FF9500}
+  @page{size:A4;margin:0}
+  body{font-family:'Noto Sans KR',sans-serif;color:var(--black);background:#e8e8ed;line-height:1.75;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;margin:10px auto;background:var(--white);position:relative;overflow:hidden;page-break-after:always;box-shadow:0 1px 12px rgba(0,0,0,.1)}
+  @media print{body{background:#fff}.page{margin:0;box-shadow:none}}
+  .sp{padding:52px 48px 44px 72px}
+  .sl{font-size:10px;letter-spacing:3px;color:var(--sky-deep);font-weight:600;margin-bottom:5px}
+  .st{font-size:26px;font-weight:700;color:var(--black);margin-bottom:5px;letter-spacing:-.5px}
+  .sd{width:32px;height:2px;background:var(--sky);margin-bottom:24px}
+  .p{font-size:13.5px;line-height:1.8;color:var(--g2);margin-bottom:14px}
+  .pn{position:absolute;bottom:26px;right:52px;font-size:10px;color:var(--g3)}
+  .pf{position:absolute;bottom:26px;left:72px;font-size:9px;color:var(--g4)}
+  .cover{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 60px}
+  .cover .logo{font-size:14px;color:var(--g3);letter-spacing:2px;margin-bottom:60px}
+  .cover h1{font-size:34px;font-weight:900;letter-spacing:-1px;margin-bottom:12px;color:var(--black);line-height:1.3}
+  .cover .sub{font-size:16px;color:var(--g2);font-weight:300;margin-bottom:8px}
+  .cover .target{font-size:13px;color:var(--sky-deep);font-weight:500;letter-spacing:1px;margin-top:40px;padding:10px 24px;border:1.5px solid var(--sky);display:inline-block}
+  .cover .date{font-size:12px;color:var(--g3);margin-top:60px}
+  .tb{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px}
+  .tb th{background:var(--g5);padding:7px 10px;text-align:left;font-weight:600;font-size:11px;color:var(--g2);border-bottom:1px solid var(--g4)}
+  .tb td{padding:7px 10px;border-bottom:1px solid #f0f0f0;color:var(--g2);vertical-align:top}
+  .tb .pr{font-weight:600;color:var(--black);text-align:right}
+  .tb .b{font-weight:600;color:var(--black)}
+  .tb .highlight{background:var(--sky-pale)}
+  .tb .ours{background:#E8F8EE}
+  .sub{margin-bottom:16px}
+  .sub h4{font-size:12.5px;font-weight:600;color:var(--black);margin-bottom:6px;padding-bottom:3px;border-bottom:1.5px solid var(--sky);display:inline-block}
+  .ig{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+  .ig3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0}
+  .ic{background:var(--g5);padding:14px 16px}
+  .ic .l{font-size:9.5px;color:var(--g3);letter-spacing:.5px;margin-bottom:3px;font-weight:500}
+  .ic .v{font-size:14px;font-weight:600;color:var(--black)}
+  .box{background:var(--g5);padding:16px 20px;margin:12px 0}
+  .box p{font-size:13.5px;line-height:1.7;color:var(--g1)}
+  .box-s{background:var(--sky-pale);padding:16px 20px;margin:12px 0}
+  .box-s p{font-size:13.5px;line-height:1.7;color:var(--g1)}
+  .tag{display:inline-block;font-size:9px;padding:2px 7px;color:#fff;font-weight:500;margin-right:3px;margin-bottom:3px}
+  .tag.yes{background:var(--green)}
+  .tag.no{background:var(--red)}
+  .tag.maybe{background:var(--orange)}
+  .tag.info{background:var(--sky-deep)}
+  .comp-card{border:1px solid var(--g4);padding:14px 18px;margin-bottom:10px}
+  .comp-card h5{font-size:13px;font-weight:700;color:var(--black);margin-bottom:4px}
+  .comp-card .meta{font-size:10px;color:var(--g3);margin-bottom:6px}
+  .comp-card .desc{font-size:11.5px;color:var(--g2);line-height:1.6}
+  .chart-h{margin:16px 0}
+  .chart-row{display:flex;align-items:center;margin-bottom:6px}
+  .chart-label{width:90px;font-size:10px;color:var(--g2);font-weight:500;flex-shrink:0}
+  .chart-bar-wrap{flex:1;height:24px;background:var(--g5);position:relative;overflow:hidden}
+  .chart-bar{height:100%;display:flex;align-items:center;padding-left:8px;font-size:10px;font-weight:600;color:#fff}
+  .chart-val{margin-left:8px;font-size:10px;color:var(--g2);font-weight:500;flex-shrink:0;width:50px;text-align:right}
+  .radar{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:14px 0}
+  .radar-item{text-align:center;padding:12px 4px;border-right:1px solid var(--g5)}
+  .radar-item:last-child{border-right:none}
+  .radar-item .dim{font-size:9px;color:var(--g3);margin-bottom:4px;font-weight:500}
+  .radar-item .score{font-size:20px;font-weight:700}
+  .radar-item .bar{height:4px;background:var(--g4);margin-top:6px}
+  .radar-item .bar-fill{height:100%}
+  .source{font-size:9px;color:var(--g2);margin-top:8px;border-top:1px solid var(--g4);padding-top:6px}
+  .note{font-size:9.5px;color:var(--g3);margin-top:6px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <img src="images/logo_factory.png" alt="더큰도시락" style="width:160px;position:absolute;top:calc(20% - 150px);left:50%;transform:translateX(-50%)">
+  <div style="position:absolute;top:calc(20% - 150px + 160px + 50px);left:0;right:0;text-align:center">
+    <h1>경쟁업체 분석 자료</h1>
+    <div class="sub">대전광역시 학교급식 도시락 시장 경쟁 현황</div>
+  </div>
+  <div style="position:absolute;bottom:50px;left:0;right:0;text-align:center">
+    <div class="target">가격 / 품질 / 설비 / 인증 비교</div>
+    <div class="date">2026. 05</div>
+  </div>
+</div>
+
+<!-- PAGE 2: 경쟁 구도 개요 -->
+<div class="page sp">
+  <div class="sl">SECTION 01</div>
+  <div class="st">대전 도시락 시장 경쟁 구도</div>
+  <div class="sd"></div>
+
+  <div class="p">대전광역시 및 인접 지역의 학교급식 도시락 시장에는 <b>약 42개의 도시락 제조판매업체</b>가 등록되어 있습니다(대전시 특사경 점검 기준). 이 중 학교급식 납품이 가능한 HACCP 인증 업체는 극소수이며, 시장은 크게 <b>학교급식 전문 납품업체</b>와 <b>기업/단체 배송 위주 업체</b>로 구분됩니다.</div>
+
+  <div class="ig3">
+    <div class="ic" style="border-left:3px solid var(--sky-deep);text-align:center">
+      <div class="l">학교급식 전문</div>
+      <div class="v" style="font-size:20px;color:var(--sky-deep)">3~4개</div>
+      <div style="font-size:10px;color:var(--g3)">HACCP, 나라장터 입찰</div>
+    </div>
+    <div class="ic" style="border-left:3px solid var(--orange);text-align:center">
+      <div class="l">기업/단체 배송</div>
+      <div class="v" style="font-size:20px;color:var(--orange)">5~6개</div>
+      <div style="font-size:10px;color:var(--g3)">정기구독, 기업 납품</div>
+    </div>
+    <div class="ic" style="border-left:3px solid var(--g3);text-align:center">
+      <div class="l">소규모/개인</div>
+      <div class="v" style="font-size:20px;color:var(--g3)">다수</div>
+      <div style="font-size:10px;color:var(--g3)">개인 배달, 소량</div>
+    </div>
+  </div>
+
+  <div class="sub" style="margin-top:20px"><h4>주요 경쟁업체 종합 비교</h4></div>
+  <table class="tb" style="font-size:10.5px">
+    <thead>
+      <tr><th>업체명</th><th>소재지</th><th>주요 유형</th><th>HACCP</th><th>배송 범위</th><th class="pr">단가(추정)</th></tr>
+    </thead>
+    <tbody>
+      <tr class="ours"><td class="b">더큰도시락</td><td>대전 동구</td><td>학교급식+단체</td><td><span class="tag yes">보유</span></td><td>대전/세종/충남/충북</td><td class="pr">7,500</td></tr>
+      <tr><td class="b">두진푸드시스템</td><td>대전 중구</td><td>위탁급식/단체</td><td><span class="tag yes">보유(2건)</span></td><td>대전/인천</td><td class="pr">미확인</td></tr>
+      <tr><td class="b">맘스민</td><td>대전 유성구</td><td>학교/기업/관공서</td><td><span class="tag no">미인증</span></td><td>대전/세종/계룡/공주</td><td class="pr">8,500~9,000</td></tr>
+      <tr><td class="b">연미당</td><td>대전 서구</td><td>기업 정기구독</td><td><span class="tag no">미인증</span></td><td>대전/세종</td><td class="pr">7,200~8,000</td></tr>
+      <tr><td class="b">한빛푸드</td><td>대전 유성구</td><td>위탁급식 전문</td><td><span class="tag yes">보유</span></td><td>전국+해외</td><td class="pr">위탁 견적</td></tr>
+      <tr><td class="b">도담도시락</td><td>대전 중구 유천동</td><td>프리미엄 한정식</td><td><span class="tag no">미인증</span></td><td>대전</td><td class="pr">미확인</td></tr>
+      <tr><td class="b">브라더한정식</td><td>전국 70+가맹(대전2곳)</td><td>프랜차이즈/정기</td><td><span class="tag yes">육가공보유</span></td><td>대전</td><td class="pr">8,500~</td></tr>
+      <tr><td class="b">할매도시락(딘딘푸드)</td><td>대전 동구 산내동</td><td>단체/정기배달</td><td><span class="tag no">미인증</span></td><td>대전</td><td class="pr">미확인</td></tr>
+      <tr><td class="b">꾹담도시락</td><td>대전 유성구 교촌동</td><td>소규모/발열</td><td><span class="tag no">미인증</span></td><td>대전</td><td class="pr">5,900~6,900</td></tr>
+      <tr><td class="b">런치박스</td><td>대전</td><td>정기배송</td><td><span class="tag no">미인증</span></td><td>대전</td><td class="pr">8,500</td></tr>
+      <tr><td class="b">한일도시락</td><td>대전 서구</td><td>도시락제조</td><td><span class="tag no">미인증</span></td><td>대전</td><td class="pr">미확인</td></tr>
+      <tr><td class="b">우리도시락</td><td>대전 서구</td><td>식품제조</td><td><span class="tag no">미인증</span></td><td>대전</td><td class="pr">미확인</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">* HACCP: <span class="tag yes">보유</span> 확인됨 / <span class="tag maybe">추정</span> 공장형 시스템 보유 / <span class="tag no">미확인</span> 홈페이지 미표기</div>
+  <div class="source">* 출처: 각 업체 홈페이지, 공공데이터포털 사업자등록정보, 식품안전나라(fresh.haccp.or.kr) HACCP 인증 조회, 네이버/카카오맵 업체 정보</div>
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">02</span>
+</div>
+
+<!-- PAGE 3: 주요 경쟁사 상세 -->
+<div class="page sp">
+  <div class="sl">SECTION 02</div>
+  <div class="st">주요 경쟁업체 상세 분석</div>
+  <div class="sd"></div>
+
+  <div class="comp-card" style="border-left:3px solid var(--orange)">
+    <h5>맘스민 (주요 경쟁사)</h5>
+    <div class="meta">대전 유성구 박산로140번길 114 / 대표: 허관행 / 사업자: 853-14-00304 / 1577-8548</div>
+    <div class="desc">
+      <b>특징:</b> 국내 최초 도시락 업계 공장형 시스템 도입 프랜차이즈. <b>14년 운영</b> 이력.<br>
+      <b>배송:</b> 대전-세종-계룡-공주 광역 배달 커버리지.<br>
+      <b>서비스:</b> 학교급식, 기업, 병원, 관공서 납품 + 위탁급식/이동급식 컨설팅 제공.<br>
+      <b>강점:</b> 프랜차이즈 네트워크, 긴 운영이력, 넓은 배달권<br>
+      <b>약점:</b> <b style="color:var(--red)">HACCP 미인증</b> (소비자24 조회 결과 없음), 자체 팩토리 부재 (프랜차이즈 의존)
+    </div>
+  </div>
+
+  <div class="comp-card" style="border-left:3px solid var(--sky)">
+    <h5>연미당 (주식회사 에스에프씨엔씨)</h5>
+    <div class="meta">대전 서구 / 대표: 김동욱 / 사업자: 250-81-02882 / yeonmidang.com</div>
+    <div class="desc">
+      <b>특징:</b> 정기구독 모델 특화. 매일 아침 직접 조리. 간편 도시락 + 샐러드 라인업.<br>
+      <b>거래처:</b> 1,000개 이상 기업에 공급 실적. 대전-세종 배송.<br>
+      <b>강점:</b> 기업 B2B 네트워크, 구독 모델, 다양한 메뉴<br>
+      <b>약점:</b> 학교급식 납품 이력 미확인, HACCP 미확인
+    </div>
+  </div>
+
+  <div class="comp-card">
+    <h5>한빛푸드</h5>
+    <div class="meta">대전 유성구 테크노4로 17 대덕비즈센터 A동 712호 / 설립 1994년 / hanbitfnb.com</div>
+    <div class="desc">
+      <b>특징:</b> <b>30년+</b> 단체급식/외식업 경력. 해외 7개국(베트남, 헝가리, 중국, 미국 등) 파견급식 운영.<br>
+      <b>강점:</b> 압도적 경력, 대규모 운영 노하우<br>
+      <b>약점:</b> 위탁급식 중심 (도시락 직접 제조보다 현장 운영 위주), 학교 도시락 납품 집중도 낮음
+    </div>
+  </div>
+
+  <div class="comp-card">
+    <h5>브라더 한정식 도시락</h5>
+    <div class="meta">전국 프랜차이즈 (대전 가맹점) / brotherfnh.com / 10년+ 운영</div>
+    <div class="desc">
+      <b>특징:</b> 한정식 기반 도시락 프랜차이즈. 월정기 서비스. 창업비용 업계 최저(~2,000만원).<br>
+      <b>거래처:</b> 기업, 공공기관, 학교(돌봄), 학원, 병원, 은행 등<br>
+      <b>강점:</b> 전국 프랜차이즈 시스템, 낮은 창업 비용<br>
+      <b>약점:</b> 가맹점별 품질 편차, 자체 생산시설 부재
+    </div>
+  </div>
+
+  <div class="source">* 출처: 각 업체 홈페이지, 국세청 사업자등록정보, 114 업종등록 데이터, 당근마켓 동네가게 정보</div>
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">03</span>
+</div>
+
+<!-- PAGE 3-2: 주요 경쟁사 상세 (계속) -->
+<div class="page sp">
+  <div class="sl">SECTION 02</div>
+  <div class="st">주요 경쟁업체 상세 분석 (계속)</div>
+  <div class="sd"></div>
+
+  <div class="comp-card" style="border-left:3px solid var(--green)">
+    <h5>두진푸드</h5>
+    <div class="meta">대전 중구 보문산로 294번길 47 / 042-582-8350 / doojin-food.co.kr / 1997년~</div>
+    <div class="desc">
+      <b>특징:</b> <b>29년</b> 급식 서비스 운영. 위탁급식/단체도시락/이동급식/식자재유통/뷔페행사 전 영역 커버.<br>
+      <b>규모:</b> 법인(두진푸드시스템) 직원 약 13명. 인천에도 지사 운영.<br>
+      <b>HACCP:</b> <b style="color:var(--green)">인증 보유 2건</b> (인증번호: 2020-6-0666, 2019-3-9170 / 즉석섭취식품·운반급식)<br>
+      <b>강점:</b> 긴 운영 이력, HACCP 인증 보유, 위탁급식+도시락 동시 운영, 식자재 대량구매 비용 절감<br>
+      <b>약점:</b> 홈페이지 SSL 만료(신뢰도 저하), 소규모 인력(13명)
+    </div>
+  </div>
+
+  <div class="comp-card">
+    <h5>한일도시락</h5>
+    <div class="meta">대전 서구 탄방동 / 042-489-7800 / 홈페이지 없음</div>
+    <div class="desc">
+      <b>특징:</b> 114 등록 업종 "도시락제조". 당근마켓 동네가게 등록.<br>
+      <b>규모:</b> 소규모 업체 추정. 온라인 정보 매우 제한적.<br>
+      <b>HACCP:</b> 미확인<br>
+      <b>강점:</b> 지역 밀착형 소규모 납품<br>
+      <b>약점:</b> 홈페이지 부재, 인증/설비 정보 없음, 대량 생산 역량 미확인
+    </div>
+  </div>
+
+  <div class="box" style="margin-top:20px">
+    <p><b>시장 구조 요약:</b> 대전 도시락 시장은 HACCP 인증 자체 팩토리를 보유한 업체가 극소수이며, 대부분 소규모 조리시설 또는 프랜차이즈 형태로 운영됩니다. 학교급식 입찰에 필수적인 HACCP 인증, 콜드체인, 계약보증보험을 모두 갖춘 업체는 <b>더큰도시락이 사실상 유일</b>합니다.</p>
+  </div>
+
+  <div class="source">* 출처: 각 업체 홈페이지, doojin-food.co.kr, 114 전화번호부, 당근마켓 동네가게, 국세청 사업자등록정보</div>
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">04</span>
+</div>
+
+<!-- PAGE 4: 가격 비교 + 경쟁력 분석 -->
+<div class="page sp">
+  <div class="sl">SECTION 03</div>
+  <div class="st">가격 및 경쟁력 비교</div>
+  <div class="sd"></div>
+
+  <div class="sub"><h4>도시락 단가 비교 (1식 기준)</h4></div>
+  <div class="chart-h">
+    <div class="chart-row">
+      <div class="chart-label">맘스민</div>
+      <div class="chart-bar-wrap"><div class="chart-bar" style="width:100%;background:var(--g3)"></div></div>
+      <div class="chart-val">~9,000원</div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">브라더한정식</div>
+      <div class="chart-bar-wrap"><div class="chart-bar" style="width:94%;background:var(--g3)"></div></div>
+      <div class="chart-val">8,500원~</div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">런치박스</div>
+      <div class="chart-bar-wrap"><div class="chart-bar" style="width:94%;background:var(--g3)"></div></div>
+      <div class="chart-val">8,500원</div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">연미당</div>
+      <div class="chart-bar-wrap"><div class="chart-bar" style="width:89%;background:var(--orange)"></div></div>
+      <div class="chart-val">~8,000원</div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label" style="font-weight:700;color:var(--sky-deep)">더큰도시락</div>
+      <div class="chart-bar-wrap"><div class="chart-bar" style="width:83%;background:var(--sky-deep)">학교급식</div></div>
+      <div class="chart-val" style="color:var(--sky-deep);font-weight:700">7,500원</div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">꾹담도시락</div>
+      <div class="chart-bar-wrap"><div class="chart-bar" style="width:77%;background:var(--green)"></div></div>
+      <div class="chart-val">6,900원</div>
+    </div>
+  </div>
+  <div class="note">* 학교급식 납품 단가는 나라장터/학교장터 입찰 기준. 기업/개인 배송 단가와 별도.</div>
+
+  <div class="sub" style="margin-top:24px"><h4>경쟁력 항목별 비교</h4></div>
+  <table class="tb" style="font-size:10.5px">
+    <thead><tr><th>항목</th><th>더큰도시락</th><th>맘스민</th><th>두진푸드</th><th>연미당</th><th>한빛푸드</th><th>기타 소형</th></tr></thead>
+    <tbody>
+      <tr><td class="b">HACCP 인증</td><td style="color:var(--green);font-weight:600">보유</td><td style="color:var(--red)">미인증</td><td style="color:var(--green);font-weight:600">보유(2건)</td><td style="color:var(--red)">미인증</td><td style="color:var(--green)">보유(포장육)</td><td style="color:var(--red)">미인증</td></tr>
+      <tr><td class="b">자체 팩토리</td><td style="color:var(--green);font-weight:600">2곳 (대전+청주)</td><td>프랜차이즈</td><td>자체 1곳</td><td>자체 1곳</td><td>위탁형</td><td>자체소형</td></tr>
+      <tr><td class="b">생산능력(일)</td><td style="color:var(--green);font-weight:600">~10,000식</td><td>미공개</td><td>미공개</td><td>미공개</td><td>대규모</td><td>소규모</td></tr>
+      <tr><td class="b">콜드체인</td><td style="color:var(--green);font-weight:600">냉동냉장 5대</td><td>일반배송</td><td>미확인</td><td>일반배송</td><td>위탁별도</td><td>미보유</td></tr>
+      <tr><td class="b">배송 범위</td><td style="color:var(--green);font-weight:600">4개 시도</td><td>대전+3개시</td><td>대전+인천</td><td>대전+세종</td><td>전국</td><td>대전</td></tr>
+      <tr><td class="b">학교 거래</td><td style="color:var(--green);font-weight:600">25개교</td><td>일부</td><td>미확인</td><td>미확인</td><td>일부</td><td>미확인</td></tr>
+      <tr><td class="b">IT 시스템</td><td style="color:var(--green);font-weight:600">자체 개발</td><td>미확인</td><td>미확인</td><td>미확인</td><td>미확인</td><td>미확인</td></tr>
+      <tr><td class="b">계약보증보험</td><td style="color:var(--green);font-weight:600">전 건 가입</td><td>미확인</td><td>미확인</td><td>미확인</td><td>미확인</td><td>미확인</td></tr>
+    </tbody>
+  </table>
+
+  <div class="source">* 출처: 나라장터/학교장터 입찰 낙찰 데이터, 각 업체 홈페이지 메뉴 가격표, 식품안전나라 HACCP 인증 조회, 자사 내부 자료</div>
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">05</span>
+</div>
+
+<!-- PAGE 6: 더큰도시락 차별화 -->
+<div class="page sp">
+  <div class="sl">SECTION 04</div>
+  <div class="st">더큰도시락 차별화 요소</div>
+  <div class="sd"></div>
+
+  <div class="sub"><h4>핵심 차별화 5가지</h4></div>
+
+  <div class="comp-card" style="border-left:4px solid var(--sky-deep)">
+    <h5>1. HACCP 인증 자체 팩토리</h5>
+    <div class="desc">대전(본사) + 청주(제2팩토리) 2곳 운영. 세종 팩토리 2026년 준비 중. 대부분 경쟁사는 HACCP 미인증이거나 프랜차이즈 형태로 품질 관리가 분산됨. <b>학교급식 입찰의 핵심 자격요건</b>인 HACCP을 자체 보유.</div>
+  </div>
+
+  <div class="comp-card" style="border-left:4px solid var(--sky-deep)">
+    <h5>2. 냉동냉장 콜드체인 시스템</h5>
+    <div class="desc">냉동냉장 탑차 <b>5대</b> 보유. 경쟁사 대부분은 일반 차량으로 배송하여 하절기 식품 안전 리스크 존재. 콜드체인은 학교급식 발주처(교육청)의 <b>우선 평가 항목</b>.</div>
+  </div>
+
+  <div class="comp-card" style="border-left:4px solid var(--sky-deep)">
+    <h5>3. 자체 개발 IT 주문관리시스템</h5>
+    <div class="desc">주문접수-생산-배차-납품을 <b>자체 개발 시스템으로 일괄 관리</b>. 대전 도시락 업계에서 IT 시스템 자체 개발·운영이 확인된 업체는 더큰도시락이 유일. 대량 납품 시 오류 최소화 및 실시간 추적 가능.</div>
+  </div>
+
+  <div class="comp-card" style="border-left:4px solid var(--sky-deep)">
+    <h5>4. 계약보증보험 전 건 가입</h5>
+    <div class="desc">SGI 서울보증 계약보증보험증권 <b>전 건 발급</b>. 학교/교육청 입장에서 납품 불이행 위험 제로. 소규모 경쟁사는 보증보험 미가입이 일반적.</div>
+  </div>
+
+  <div class="comp-card" style="border-left:4px solid var(--sky-deep)">
+    <h5>5. 28년 단체급식 전문성 + 다중 브랜드</h5>
+    <div class="desc">대표 28년 외식/급식 경력. 더큰도시락, 소바공방, 카페그랑떼, 고궁, 코리아하우스 등 <b>5개 브랜드 운영 경험</b>. 대학/백화점/아울렛 50+ 매장 운영 이력으로 대규모 운영 검증 완료.</div>
+  </div>
+
+  <div class="box-s" style="margin-top:16px">
+    <p><b>종합 평가:</b> 대전 지역 학교급식 도시락 시장에서 <b>HACCP 자체 팩토리 + 콜드체인 + IT시스템 + 계약보증보험</b>을 동시에 갖춘 업체는 더큰도시락이 사실상 유일합니다. 이는 학교/교육청 입찰 시 <b>가격 경쟁력과 함께 품질/안전 신뢰도</b>에서 결정적 우위를 제공합니다.</p>
+  </div>
+
+  <div class="source">* 경쟁업체 정보 출처: 각 업체 홈페이지, 나라장터 입찰 공고, 공공데이터포털 학교급식계약정보, 대전광역시교육청 학교급식 우수업체 선정 자료</div>
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">06</span>
+</div>
+
+</body>
+</html>
