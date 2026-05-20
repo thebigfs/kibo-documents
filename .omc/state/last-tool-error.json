@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"vercel --yes --prod 2>&1\",\"timeout\":60000,\"description\":\"Deploy to Vercel production\"}",
+  "error": "Exit code 1\n<claude-code-hint v=\"1\" type=\"plugin\" value=\"vercel@claude-plugins-official\" />\nLoading scopes…\n{\n  \"status\": \"action_required\",\n  \"reason\": \"missing_scope\",\n  \"message\": \"Provide --scope or --team explicitly. No default is applied in non-interactive mode.\",\n  \"choices\": [\n    {\n      \"id\": \"team_ZfcaVAbezrUDWA56kVLwmWYZ\",\n      \"name\": \"thebigfs-projects\"\n    }\n  ],\n  \"next\": [\n    {\n      \"command\": \"vercel link --prod --scope thebigfs-projects\",\n      \"when\": \"Link first (then run...",
+  "timestamp": "2026-05-20T04:53:35.223Z",
+  "retry_count": 1
+}

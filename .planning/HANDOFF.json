@@ -1,8 +1,8 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-20T04:51:30.201Z",
+  "timestamp": "2026-05-20T04:57:30.998Z",
   "source": "auto-postool",
-  "partial": true,
+  "partial": false,
   "phase": null,
   "phase_name": null,
   "phase_dir": null,
@@ -15,7 +15,20 @@
   "blockers": [],
   "human_actions_pending": [],
   "decisions": [],
-  "uncommitted_files": [],
+  "uncommitted_files": [
+    {
+      "status": "M",
+      "path": ".planning/HANDOFF.json"
+    },
+    {
+      "status": "??",
+      "path": ".gitignore"
+    },
+    {
+      "status": "??",
+      "path": ".omc/"
+    }
+  ],
   "next_action": null,
-  "context_notes": ""
+  "context_notes": "Recent commits:\nf5ce196 기보 서류: 시장규모 분석 + 경쟁업체 분석 문서"
 }
