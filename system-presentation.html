@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자체 개발 시스템 발표 가이드 - 주식회사 더큰도시락</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--sky:#5AC8FA;--sky-deep:#2196F3;--sky-pale:#EBF5FF;--black:#1d1d1f;--g1:#333;--g2:#6e6e73;--g3:#86868b;--g4:#d2d2d7;--g5:#f5f5f7;--white:#fff;--green:#34C759;--orange:#FF9500}
+  @page{size:A4;margin:0}
+  body{font-family:'Noto Sans KR',sans-serif;color:var(--black);background:#e8e8ed;line-height:1.75;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;margin:10px auto;background:var(--white);position:relative;overflow:hidden;page-break-after:always;box-shadow:0 1px 12px rgba(0,0,0,.1)}
+  @media print{body{background:#fff}.page{margin:0;box-shadow:none}}
+  .sp{padding:52px 48px 44px 72px}
+  .sl{font-size:10px;letter-spacing:3px;color:var(--sky-deep);font-weight:600;margin-bottom:5px}
+  .st{font-size:26px;font-weight:700;color:var(--black);margin-bottom:5px;letter-spacing:-.5px}
+  .sd{width:32px;height:2px;background:var(--sky);margin-bottom:24px}
+  .p{font-size:13.5px;line-height:1.8;color:var(--g2);margin-bottom:14px}
+  .pn{position:absolute;bottom:26px;right:52px;font-size:10px;color:var(--g3)}
+  .pf{position:absolute;bottom:26px;left:72px;font-size:9px;color:var(--g4)}
+
+  .cover{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 60px}
+  .cover .logo{font-size:14px;color:var(--g3);letter-spacing:2px;margin-bottom:60px}
+  .cover h1{font-size:32px;font-weight:900;letter-spacing:-1px;margin-bottom:12px;color:var(--black);line-height:1.3}
+  .cover .sub{font-size:16px;color:var(--g2);font-weight:300;margin-bottom:8px}
+  .cover .date{font-size:12px;color:var(--g3);margin-top:60px}
+
+  .sys{border:1px solid var(--g4);padding:18px 22px;margin-bottom:14px;position:relative}
+  .sys .badge{position:absolute;top:18px;right:22px;font-size:9px;padding:2px 8px;font-weight:600;color:#fff;background:var(--sky-deep)}
+  .sys h3{font-size:15px;font-weight:700;color:var(--black);margin-bottom:2px}
+  .sys .url{font-size:10px;color:var(--sky-deep);margin-bottom:8px;font-weight:500}
+  .sys .desc{font-size:12px;color:var(--g2);line-height:1.7}
+  .sys .desc b{color:var(--black)}
+  .sys .tags{margin-top:8px}
+  .sys .tag{display:inline-block;font-size:9px;padding:2px 7px;background:var(--g5);color:var(--g2);margin-right:3px;margin-bottom:3px;font-weight:500}
+
+  .tb{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px}
+  .tb th{background:var(--g5);padding:7px 10px;text-align:left;font-weight:600;font-size:11px;color:var(--g2);border-bottom:1px solid var(--g4)}
+  .tb td{padding:7px 10px;border-bottom:1px solid #f0f0f0;color:var(--g2);vertical-align:top}
+  .tb .b{font-weight:600;color:var(--black)}
+
+  .box-s{background:var(--sky-pale);padding:16px 20px;margin:12px 0}
+  .box-s p{font-size:13px;line-height:1.7;color:var(--g1)}
+  .box{background:var(--g5);padding:16px 20px;margin:12px 0}
+  .box p{font-size:13px;line-height:1.7;color:var(--g1)}
+
+  .sub{margin-bottom:16px}
+  .sub h4{font-size:12.5px;font-weight:600;color:var(--black);margin-bottom:6px;padding-bottom:3px;border-bottom:1.5px solid var(--sky);display:inline-block}
+
+  .ig{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+  .ig3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0}
+  .ic{background:var(--g5);padding:14px 16px}
+  .ic .l{font-size:9.5px;color:var(--g3);letter-spacing:.5px;margin-bottom:3px;font-weight:500}
+  .ic .v{font-size:14px;font-weight:600;color:var(--black)}
+  .ic .v.big{font-size:20px;color:var(--sky-deep)}
+
+  .flow{display:flex;align-items:center;gap:0;margin:16px 0;flex-wrap:wrap}
+  .flow-item{text-align:center;padding:10px 14px;background:var(--sky-pale);flex:1;min-width:100px}
+  .flow-arrow{font-size:16px;color:var(--sky);padding:0 4px;flex-shrink:0}
+  .flow-item .fn{font-size:11px;font-weight:600;color:var(--sky-deep)}
+  .flow-item .fd{font-size:9px;color:var(--g3);margin-top:2px}
+
+  .source{font-size:9px;color:var(--g4);margin-top:8px;border-top:1px solid var(--g5);padding-top:6px}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <div class="logo">주식회사 더큰도시락</div>
+  <h1>자체 개발 IT 시스템<br>발표 안내서</h1>
+  <div class="sub">전사 디지털 관리 역량 — 8개 시스템 통합 운영</div>
+  <div class="date">2026. 05</div>
+</div>
+
+<!-- PAGE 2: 전체 개요 -->
+<div class="page sp">
+  <div class="sl">OVERVIEW</div>
+  <div class="st">왜 IT 시스템을 자체 개발했는가</div>
+  <div class="sd"></div>
+
+  <div class="p">주식회사 더큰도시락은 학교급식 도시락 사업의 <b>모든 업무 프로세스를 디지털화</b>하기 위해 자체 IT 시스템을 개발했습니다. 시중 솔루션으로는 도시락 납품이라는 특수한 업종의 요구사항을 충족할 수 없었고, <b>정확한 관리, 실시간 추적, 데이터 기반 의사결정</b>을 위해 직접 만들었습니다.</div>
+
+  <div class="box-s">
+    <p><b>핵심 목표:</b> 모든 프로젝트를 <b>손쉽게, 효과적으로, 정확하게</b> 관리하는 것.<br>
+    주문부터 생산, 배차, 납품, 인사, 재무까지 — 하나의 통합 플랫폼으로 운영합니다.</p>
+  </div>
+
+  <div class="sub" style="margin-top:24px"><h4>자체 개발 시스템 전체 구성 (8개)</h4></div>
+  <table class="tb">
+    <thead><tr><th>#</th><th>시스템</th><th>도메인</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td class="b">1</td><td class="b">SSO 통합 포탈</td><td>service.thebigger.co.kr</td><td>통합 인증 + 전체 시스템 진입점</td></tr>
+      <tr><td class="b">2</td><td class="b">도시락 주문관리</td><td>lunchbox.thebigger.co.kr</td><td>수량관리 / 포장표 / 배차 / 생산집계 / 견적</td></tr>
+      <tr><td class="b">3</td><td class="b">출퇴근 대시보드</td><td>attendance.thebigger.co.kr</td><td>QR 출퇴근 / 카카오 알림톡 / D1 이중화</td></tr>
+      <tr><td class="b">4</td><td class="b">근로계약서</td><td>contract.thebigger.co.kr</td><td>전자서명 / PDF 자동생성 / 카카오 발송</td></tr>
+      <tr><td class="b">5</td><td class="b">손익분석</td><td>pnl.thebigger.co.kr</td><td>매장별 매출/원가/경비 자동 집계</td></tr>
+      <tr><td class="b">6</td><td class="b">토큰 관리</td><td>token.thebigger.co.kr</td><td>API 키 만료 관리 / 알림</td></tr>
+      <tr><td class="b">7</td><td class="b">사직서</td><td>resignation.thebigger.co.kr</td><td>전자 사직서 작성 / 서명</td></tr>
+      <tr><td class="b">8</td><td class="b">법인차량 운행일지</td><td>vehicle (개발중)</td><td>차량별 운행 기록 관리</td></tr>
+    </tbody>
+  </table>
+
+  <div class="ig3">
+    <div class="ic" style="text-align:center">
+      <div class="v big">8개</div>
+      <div class="l">자체 개발 시스템</div>
+    </div>
+    <div class="ic" style="text-align:center">
+      <div class="v big">SSO</div>
+      <div class="l">통합 인증 체계</div>
+    </div>
+    <div class="ic" style="text-align:center">
+      <div class="v big">100%</div>
+      <div class="l">자체 개발/운영</div>
+    </div>
+  </div>
+
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">02</span>
+</div>
+
+<!-- PAGE 3: 업무 흐름 -->
+<div class="page sp">
+  <div class="sl">WORKFLOW</div>
+  <div class="st">시스템 연동 업무 흐름</div>
+  <div class="sd"></div>
+
+  <div class="p">8개 시스템은 <b>SSO 통합 포탈</b>을 중심으로 하나의 업무 흐름으로 연결됩니다. 모든 시스템에 <b>한 번의 로그인</b>으로 접근하며, 데이터가 자동으로 연동됩니다.</div>
+
+  <div class="sub"><h4>도시락 납품 업무 흐름</h4></div>
+  <div class="flow">
+    <div class="flow-item"><div class="fn">주문 접수</div><div class="fd">도시락 주문관리</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">수량 확정</div><div class="fd">납품처별 집계</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">생산 지시</div><div class="fd">포장표 출력</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">배차</div><div class="fd">차량/납품처 배정</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">납품 완료</div><div class="fd">실적 기록</div></div>
+  </div>
+
+  <div class="sub" style="margin-top:20px"><h4>인사/재무 관리 흐름</h4></div>
+  <div class="flow">
+    <div class="flow-item"><div class="fn">채용</div><div class="fd">근로계약서 전자서명</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">근태</div><div class="fd">QR 출퇴근 관리</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">급여</div><div class="fd">엑셀 파싱 자동계산</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">손익</div><div class="fd">매장별 자동 집계</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">퇴사</div><div class="fd">전자 사직서</div></div>
+  </div>
+
+  <div class="sub" style="margin-top:24px"><h4>기존 방식 vs 자체 시스템</h4></div>
+  <table class="tb">
+    <thead><tr><th>업무</th><th>기존 방식</th><th>자체 시스템</th><th>효과</th></tr></thead>
+    <tbody>
+      <tr><td class="b">주문 관리</td><td>전화/카톡 수기 접수</td><td>시스템 자동 집계</td><td>오류 제로, 실시간</td></tr>
+      <tr><td class="b">출퇴근</td><td>수기 출석부</td><td>QR + 카카오 알림톡</td><td>무단이탈 즉시 감지</td></tr>
+      <tr><td class="b">근로계약</td><td>종이 계약서</td><td>전자서명 + PDF</td><td>즉시 체결, 보관 자동</td></tr>
+      <tr><td class="b">배차</td><td>화이트보드 수기</td><td>차량/납품처 자동 배정</td><td>배송 최적화</td></tr>
+      <tr><td class="b">손익분석</td><td>엑셀 수작업</td><td>노션 DB 자동 연동</td><td>실시간 매장별 비교</td></tr>
+    </tbody>
+  </table>
+
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">03</span>
+</div>
+
+<!-- PAGE 4: 핵심 시스템 1 - 도시락 주문관리 -->
+<div class="page sp">
+  <div class="sl">SYSTEM 01</div>
+  <div class="st">도시락 주문관리 시스템</div>
+  <div class="sd"></div>
+
+  <div class="sys">
+    <div class="badge">핵심 시스템</div>
+    <h3>lunchbox.thebigger.co.kr</h3>
+    <div class="url">Next.js 14 + TypeScript + Supabase</div>
+    <div class="desc">
+      학교/기관별 도시락 <b>주문 접수부터 생산, 배차, 납품까지 전 과정</b>을 관리하는 통합 시스템입니다.<br><br>
+      <b>발표 포인트:</b><br>
+      "매일 아침 50개 이상 납품처의 수량을 전화와 카톡으로 받아 수기로 집계하던 것을, 이 시스템 하나로 자동화했습니다. 수량 변경이 실시간으로 반영되고, 포장표가 자동 출력되며, 배차까지 한 화면에서 처리됩니다."
+    </div>
+    <div class="tags">
+      <span class="tag">수량관리</span><span class="tag">포장표</span><span class="tag">생산집계</span><span class="tag">배차</span><span class="tag">견적서 PDF</span><span class="tag">일정관리</span><span class="tag">설정</span><span class="tag">대시보드</span>
+    </div>
+  </div>
+
+  <div class="sub" style="margin-top:16px"><h4>주요 기능 8개 탭</h4></div>
+  <table class="tb">
+    <thead><tr><th>탭</th><th>기능</th><th>해결하는 문제</th></tr></thead>
+    <tbody>
+      <tr><td class="b">대시보드</td><td>오늘 납품 현황 한눈에</td><td>아침마다 전화 돌리며 확인하던 작업 제거</td></tr>
+      <tr><td class="b">수량관리</td><td>납품처별 일일 수량 입력/수정</td><td>카톡 주문 누락, 수량 오류 방지</td></tr>
+      <tr><td class="b">포장표</td><td>납품처별 포장 라벨 자동 생성</td><td>수기 라벨 작성 시간 절감</td></tr>
+      <tr><td class="b">생산집계</td><td>전체 생산량 자동 합산</td><td>조리팀에 정확한 생산 지시</td></tr>
+      <tr><td class="b">배차</td><td>차량 5대별 납품처 배정</td><td>배송 경로 최적화, 차량 관리</td></tr>
+      <tr><td class="b">견적서</td><td>PDF 견적서 자동 생성</td><td>입찰 시 즉시 견적 제출</td></tr>
+      <tr><td class="b">일정</td><td>납품 일정 캘린더</td><td>방학/개학 일정에 맞춘 생산 계획</td></tr>
+      <tr><td class="b">설정</td><td>납품처/메뉴/차량 관리</td><td>마스터 데이터 중앙 관리</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box-s">
+    <p><b>실제 효과:</b> 주문 접수~배차 완료까지 기존 2시간 → <b>15분</b>으로 단축. 수량 오류 <b>제로</b>. 50개+ 납품처를 직원 1명이 관리 가능.</p>
+  </div>
+
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">04</span>
+</div>
+
+<!-- PAGE 5: 핵심 시스템 2 - 출퇴근 -->
+<div class="page sp">
+  <div class="sl">SYSTEM 02</div>
+  <div class="st">출퇴근 관리 시스템</div>
+  <div class="sd"></div>
+
+  <div class="sys">
+    <div class="badge">운영 중</div>
+    <h3>attendance.thebigger.co.kr</h3>
+    <div class="url">Cloudflare Workers + D1 + KV + Vercel (Next.js)</div>
+    <div class="desc">
+      <b>QR코드 기반 출퇴근 기록</b> + 카카오 알림톡 자동 발송 + 관리자 대시보드를 갖춘 통합 근태관리 시스템입니다.<br><br>
+      <b>발표 포인트:</b><br>
+      "직원이 60명 이상이고, 여러 매장에 분산 근무합니다. 종이 출석부로는 관리가 불가능해서, QR 스캔 한 번으로 출퇴근이 기록되고, 퇴근 미등록 시 카카오 알림톡이 자동 발송되는 시스템을 만들었습니다."
+    </div>
+    <div class="tags">
+      <span class="tag">QR 출퇴근</span><span class="tag">카카오 알림톡</span><span class="tag">D1 이중화</span><span class="tag">직원관리</span><span class="tag">검색</span><span class="tag">날짜별 조회</span>
+    </div>
+  </div>
+
+  <div class="sub" style="margin-top:16px"><h4>아키텍처</h4></div>
+  <div class="flow">
+    <div class="flow-item"><div class="fn">직원 QR 스캔</div><div class="fd">모바일 앱</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">Workers API</div><div class="fd">노션 + D1 동시 저장</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">대시보드</div><div class="fd">실시간 현황</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-item"><div class="fn">Cron 20:00</div><div class="fd">퇴근 미등록 알림톡</div></div>
+  </div>
+
+  <div class="ig">
+    <div class="ic"><div class="l">등록 직원</div><div class="v">63명</div></div>
+    <div class="ic"><div class="l">데이터 보관</div><div class="v">노션(SoT) + D1(이중화)</div></div>
+    <div class="ic"><div class="l">자동 알림</div><div class="v">매일 20:00 카카오 알림톡</div></div>
+    <div class="ic"><div class="l">데이터 보존</div><div class="v">3년 (근로기준법 준수)</div></div>
+  </div>
+
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">05</span>
+</div>
+
+<!-- PAGE 6: 나머지 시스템 -->
+<div class="page sp">
+  <div class="sl">SYSTEM 03~06</div>
+  <div class="st">인사/재무/관리 시스템</div>
+  <div class="sd"></div>
+
+  <div class="sys">
+    <h3>근로계약서 전자서명 시스템</h3>
+    <div class="url">contract.thebigger.co.kr</div>
+    <div class="desc">
+      관리자가 계약 내용을 입력하면 <b>카카오톡으로 서명 링크가 발송</b>됩니다. 근로자가 모바일에서 전자서명하면 <b>PDF가 자동 생성</b>되고 양측에 보관됩니다. 종이 계약서 없이 <b>즉시 체결</b>, 분실 위험 제로.
+    </div>
+    <div class="tags">
+      <span class="tag">전자서명</span><span class="tag">PDF 자동생성</span><span class="tag">카카오 발송</span><span class="tag">임시저장</span><span class="tag">학교별 문구</span>
+    </div>
+  </div>
+
+  <div class="sys">
+    <h3>손익분석 대시보드</h3>
+    <div class="url">pnl.thebigger.co.kr</div>
+    <div class="desc">
+      한밭대/침신대/카이스트 3개 매장의 <b>매출, 인건비, 고정지출, 경비를 노션 DB에서 자동 집계</b>하여 시각화합니다. 매장 간 비교 모드로 <b>어느 매장이 수익성이 높은지</b> 한눈에 파악. GitHub Actions 크론으로 <b>매일 자동 업데이트</b>.
+    </div>
+    <div class="tags">
+      <span class="tag">멀티스토어</span><span class="tag">매장비교</span><span class="tag">자동집계</span><span class="tag">Chart.js</span><span class="tag">크론 자동화</span>
+    </div>
+  </div>
+
+  <div class="sys">
+    <h3>SSO 통합 포탈</h3>
+    <div class="url">service.thebigger.co.kr</div>
+    <div class="desc">
+      전체 8개 시스템에 <b>한 번의 로그인으로 접근</b>합니다. JWT 공유 쿠키 방식으로 *.thebigger.co.kr 전체에 인증이 공유됩니다. <b>슈퍼관리자가 직원별 접근 권한을 관리</b>할 수 있어, 보안과 편의를 동시에 확보합니다.
+    </div>
+    <div class="tags">
+      <span class="tag">SSO</span><span class="tag">JWT 쿠키</span><span class="tag">권한관리</span><span class="tag">6개 프로젝트 연동</span>
+    </div>
+  </div>
+
+  <div class="sys">
+    <h3>토큰 관리 / 사직서 / 법인차량</h3>
+    <div class="url">token / resignation / vehicle .thebigger.co.kr</div>
+    <div class="desc">
+      <b>토큰 관리:</b> 외부 API 키 만료일 추적 + Solapi LMS 알림. <b>사직서:</b> 전자 사직서 작성/서명. <b>법인차량:</b> 차량별 운행 기록 관리(개발중).
+    </div>
+  </div>
+
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">06</span>
+</div>
+
+<!-- PAGE 7: 기술 스택 + 차별화 -->
+<div class="page sp">
+  <div class="sl">TECHNOLOGY</div>
+  <div class="st">기술 스택 및 차별화</div>
+  <div class="sd"></div>
+
+  <div class="sub"><h4>공통 기술 스택</h4></div>
+  <table class="tb">
+    <thead><tr><th>영역</th><th>기술</th><th>선택 이유</th></tr></thead>
+    <tbody>
+      <tr><td class="b">프론트엔드</td><td>Next.js 14 (Pages Router) + TypeScript</td><td>빠른 개발, SSR, 타입 안전성</td></tr>
+      <tr><td class="b">백엔드</td><td>Cloudflare Workers + Vercel Functions</td><td>무서버, 저비용, 자동 확장</td></tr>
+      <tr><td class="b">데이터베이스</td><td>Supabase (PostgreSQL) + Cloudflare D1</td><td>이중화, 실시간, 무료 범위 활용</td></tr>
+      <tr><td class="b">인증</td><td>JWT 공유 쿠키 (SSO)</td><td>전체 시스템 통합 인증</td></tr>
+      <tr><td class="b">알림</td><td>Solapi (카카오 알림톡/LMS)</td><td>공식 API, 템플릿 승인</td></tr>
+      <tr><td class="b">배포</td><td>Vercel + Cloudflare</td><td>git push 자동 배포, 무중단</td></tr>
+      <tr><td class="b">디자인</td><td>Apple HIG 기반 다크모드</td><td>전 사이트 UI 통일, Pretendard 폰트</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sub" style="margin-top:24px"><h4>대전 도시락 업계에서의 차별화</h4></div>
+  <div class="box-s">
+    <p>대전 지역 약 42개 도시락 업체 중 <b>자체 IT 시스템을 개발/운영하는 업체는 더큰도시락이 유일</b>합니다.<br><br>
+    경쟁사 대부분은 전화/카톡으로 주문을 받고, 엑셀로 정산하며, 종이 출석부를 사용합니다. 더큰도시락은 <b>주문~생산~배차~납품~인사~재무</b>까지 전 과정을 디지털화하여 <b>적은 인력으로 대규모 납품을 정확하게</b> 처리할 수 있습니다.</p>
+  </div>
+
+  <div class="ig3">
+    <div class="ic" style="text-align:center;padding:20px 10px">
+      <div style="font-size:22px;font-weight:700;color:var(--sky-deep);margin-bottom:6px">8개</div>
+      <div style="font-size:11px;color:var(--g2)">자체 개발 시스템</div>
+    </div>
+    <div class="ic" style="text-align:center;padding:20px 10px">
+      <div style="font-size:22px;font-weight:700;color:var(--sky-deep);margin-bottom:6px">0원</div>
+      <div style="font-size:11px;color:var(--g2)">외부 솔루션 비용<br>(전부 무료 티어 활용)</div>
+    </div>
+    <div class="ic" style="text-align:center;padding:20px 10px">
+      <div style="font-size:22px;font-weight:700;color:var(--sky-deep);margin-bottom:6px">유일</div>
+      <div style="font-size:11px;color:var(--g2)">대전 도시락 업계<br>IT 자체 개발</div>
+    </div>
+  </div>
+
+  <div class="box" style="margin-top:16px">
+    <p><b>결론:</b> IT 시스템은 단순 편의 도구가 아니라, 더큰도시락이 <b>적은 인력(8명)으로 75+ 거래처에 일 10,000식을 정확하게 납품</b>할 수 있는 핵심 경쟁력입니다. 이것이 HACCP, 콜드체인과 함께 더큰도시락만의 <b>진입장벽</b>을 만듭니다.</p>
+  </div>
+
+  <span class="pf">주식회사 더큰도시락</span><span class="pn">07</span>
+</div>
+
+</body>
+</html>
