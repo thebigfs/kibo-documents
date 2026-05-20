@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-20T04:57:30.998Z",
+  "timestamp": "2026-05-20T05:16:46.319Z",
   "source": "auto-postool",
   "partial": false,
   "phase": null,
@@ -21,14 +21,14 @@
       "path": ".planning/HANDOFF.json"
     },
     {
-      "status": "??",
-      "path": ".gitignore"
+      "status": "M",
+      "path": "index.html"
     },
     {
       "status": "??",
-      "path": ".omc/"
+      "path": "system-presentation.html"
     }
   ],
   "next_action": null,
-  "context_notes": "Recent commits:\nf5ce196 기보 서류: 시장규모 분석 + 경쟁업체 분석 문서"
+  "context_notes": "Recent commits:\nd1e2917 인덱스에 브로슈어 링크 추가\nb4da8fc .omc 폴더 gitignore 추가\nbb21b50 브로슈어 발표 가이드 인덱스 추가\nf5ce196 기보 서류: 시장규모 분석 + 경쟁업체 분석 문서"
 }
